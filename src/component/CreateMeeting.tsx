@@ -1,6 +1,102 @@
+"use client";
 import Image from "next/image";
 import icon from "../images/keyboard.png";
+import I1 from "../images/Img1.png";
+import I2 from "../images/Img2.png";
+import I3 from "../images/Img3.png";
+import link from "../images/link.png";
+import add from "../images/add.png";
+import cal from "../images/calendar.png";
+import React from "react";
+import { useState } from "react";
+import { Dropdown, MenuProps, Space } from "antd";
+
+const items: MenuProps["items"] = [
+  {
+    label: (
+      <div className="text-lg flex gap-5 items-center ">
+        <Image src={link} height={8} width={30} alt=""></Image>
+        <a href="#">Create a meeting for later</a>
+      </div>
+    ),
+    key: "0",
+  },
+  {
+    label: (
+      <div className="text-lg flex gap-5 items-center ">
+        <Image src={add} height={8} width={30} alt=""></Image>
+        <a href="meeting">Start an instant meeting</a>
+      </div>
+    ),
+    key: "1",
+  },
+
+  {
+    label: (
+      <div className="text-lg flex gap-5 items-center ">
+        <Image src={cal} height={8} width={30} alt=""></Image>
+        <a href="#">Schedule in Google Calender</a>
+      </div>
+    ),
+    key: "3",
+  },
+];
+
 const CreateMeeting = () => {
+  const Icons = [I1, I2, I3];
+  const Headings = [
+    "Get a link that you can share",
+    "Plan ahead",
+    "Your meeting is safe",
+  ];
+
+  const Desc = [
+    <div>
+      Click <strong> New meeting </strong> to get a link that you can send to
+      people that you want to meet with
+    </div>,
+    <div>
+      Click <strong> New meeting </strong> to schedule meetings in Google,
+      Calendar and send invitations to participants
+    </div>,
+    "No one can join a meeting unless invited or admitted by the host",
+  ];
+
+  let [value, setValue] = useState(0);
+  let [head, setHead] = useState(0);
+  let [desc, setDesc] = useState(0);
+  const next = () => {
+    value = value + 1;
+    setValue(value);
+    head = head + 1;
+    setHead(head);
+    desc = desc + 1;
+    setDesc(desc);
+    if (value == 3) {
+      value = 0;
+      head = 0;
+      desc = 0;
+      setValue(value);
+      setHead(head);
+      setDesc(desc);
+    }
+  };
+  const prev = () => {
+    value = value - 1;
+    head = head - 1;
+    desc = desc - 1;
+    setValue(value);
+    setHead(head);
+    setDesc(desc);
+    if (value == -1) {
+      value = 2;
+      head = 2;
+      desc = 2;
+      setValue(value);
+      setHead(head);
+      setDesc(desc);
+    }
+  };
   return (
     <>
       <nav className="flex justify-between mx-10 items-center">
@@ -149,31 +245,37 @@ const CreateMeeting = () => {
         </div>
       </nav>
 
-      <div className="w-1/2 my-48 mx-20">
-        <div className="max-w-3xl">
+      <div className="w-full flex gap-20 mr-8 mt-24 p-20">
+        <div className="max-w-3xl mt-5">
           <h1 className="font-semiboldbold text-5xl mb-10">
             Video calls and meetings for everyone
           </h1>
-          <p className="font-semibold text-xl text-gray-400 max-w-xl mb-10">
+          <p className=" text-lg text-gray-400 max-w-xl mb-10">
             Google Meet provides secure, easy-to-use video calls and meetings
             for everyone, on any device.
           </p>
-          <div className="flex gap-10 items-center">
-            <button className="flex gap-2 items-center bg-blue-500 px-5 py-2 rounded-lg text-white font-semibold">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                id="VideoCall"
-                height={40}
-                width={30}
-              >
-                <path fill="none" d="M0 0h24v24H0V0z"></path>
-                <path
-                  d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM15 16H5V8h10v8zm-6-1h2v-2h2v-2h-2V9H9v2H7v2h2z"
-                  fill="#ffffff"
-                ></path>
-              </svg>
-              New meeting
+          <div className="flex gap-10 items-center flex-wrap">
+            <button className="flex gap-2 items-center bg-blue-500 px-5 py-1 rounded-lg text-white font-semibold">
+              <Dropdown menu={{ items }} trigger={["click"]}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      id="VideoCall"
+                      height={40}
+                      width={30}
+                    >
+                      <path fill="none" d="M0 0h24v24H0V0z"></path>
+                      <path
+                        d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM15 16H5V8h10v8zm-6-1h2v-2h2v-2h-2V9H9v2H7v2h2z"
+                        fill="#ffffff"
+                      ></path>
+                    </svg>
+                    New Meeting
+                  </Space>
+                </a>
+              </Dropdown>
             </button>
             <button className="">
               <span className="absolute mx-3 my-2.5">
@@ -188,7 +290,27 @@ const CreateMeeting = () => {
             <a href="#">Join</a>
           </div>
         </div>
-        <div></div>
+        <div>
+          <div className="flex items-center gap-16">
+            <button
+              className="text-xl hover:bg-gray-100 px-3.5 pb-2 pt-1 rounded-full"
+              onClick={prev}
+            >
+              &lt;
+            </button>
+            <Image width={230} src={Icons[value]} alt=""></Image>
+            <button
+              className="text-xl hover:bg-gray-100 px-3.5 pb-2 pt-1 rounded-full"
+              onClick={next}
+            >
+              &gt;
+            </button>
+          </div>
+          <div className="flex flex-col items-center w-96 text-center gap-3 justify-around ml-8 mt-12">
+            <h3 className=" text-2xl">{Headings[head]}</h3>
+            <div className=" text-sm text-gray-700  ">{Desc[desc]}</div>
+          </div>
+        </div>
       </div>
     </>
   );
