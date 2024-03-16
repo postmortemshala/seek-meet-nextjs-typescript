@@ -10,35 +10,36 @@ import cal from "../images/calendar.png";
 import React from "react";
 import { useState } from "react";
 import { Dropdown, MenuProps, Space } from "antd";
+import Link from "next/link";
 
 const items: MenuProps["items"] = [
   {
     label: (
-      <div className="text-lg flex gap-5 items-center ">
+      <Link href="/meeting" className="text-lg flex gap-5 items-center ">
         <Image src={link} height={8} width={30} alt=""></Image>
-        <a href="#">Create a meeting for later</a>
-      </div>
+        <>Create a meeting for later</>
+      </Link>
     ),
     key: "0",
   },
   {
     label: (
-      <div className="text-lg flex gap-5 items-center ">
+      <Link href="/instant" className="text-lg flex gap-5 items-center  ">
         <Image src={add} height={8} width={30} alt=""></Image>
-        <a href="meeting">Start an instant meeting</a>
-      </div>
+        <>Start an instant meeting</>
+      </Link>
     ),
     key: "1",
   },
 
   {
     label: (
-      <div className="text-lg flex gap-5 items-center ">
+      <Link href={"#"} className="text-lg flex gap-5 items-center ">
         <Image src={cal} height={8} width={30} alt=""></Image>
-        <a href="#">Schedule in Google Calender</a>
-      </div>
+        <>Schedule in Google Calender</>
+      </Link>
     ),
-    key: "3",
+    key: "2",
   },
 ];
 

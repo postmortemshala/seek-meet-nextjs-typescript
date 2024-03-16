@@ -1,6 +1,9 @@
+import dynamic from "next/dynamic";
 import React from "react";
-import Meeting from "seek-solution/component/Meeting";
 
+const Meeting = dynamic(() => import("seek-solution/component/Meeting"), {
+  ssr: false,
+});
 function page() {
   return (
     <div>
